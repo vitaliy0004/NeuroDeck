@@ -1,5 +1,5 @@
 package com.example.feature_home
 
-class H {
+class G {
     //Коммит
 }
