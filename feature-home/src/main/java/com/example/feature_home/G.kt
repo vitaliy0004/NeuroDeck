@@ -1,4 +1,4 @@
 package com.example.feature_home
 
-class G {
+class feature_G {
 }
