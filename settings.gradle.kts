@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "My Application"
+rootProject.name = "NeuroDeck"
 include(":app")
 include(":feature-home")
 include(":core-ui")
