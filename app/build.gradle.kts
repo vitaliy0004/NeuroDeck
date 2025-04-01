@@ -1,7 +1,11 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -56,4 +60,19 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //room
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.kapt)
+    //hilt
+    implementation(libs.androidx.hilt.compose)
+    implementation(libs.google.hilt.android)
+    kapt(libs.google.hilt.compiler)
+    //coroutines
+    implementation(libs.org.jetbrains.kotlinx.core)
+    implementation(libs.org.jetbrains.kotlinx.android)
+
+    implementation(project(":database"))
+    implementation(project(":core"))
 }

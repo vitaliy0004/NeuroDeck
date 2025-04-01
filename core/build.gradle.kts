@@ -3,12 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
-//    alias(libs.plugins.room)
 }
 
 android {
-    namespace = "com.example.database"
-    compileSdk = 35
+    namespace = "com.example.core"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -36,18 +35,18 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    //room
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.kapt)
+
     //hilt
     implementation(libs.androidx.hilt.compose)
     implementation(libs.google.hilt.android)
     kapt(libs.google.hilt.compiler)
+
+    implementation(project(":database"))
 }
