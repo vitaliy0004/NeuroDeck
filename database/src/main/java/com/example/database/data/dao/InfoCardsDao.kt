@@ -15,8 +15,8 @@ interface InfoCardsDao {
     @Query("SELECT * FROM infoCards WHERE collection_id = :collectionId")
     fun getCardsForCollection(collectionId: Int): Flow<List<InfoCards>>
 
-    @Query("DELETE FROM infoCards WHERE question = :question AND id = :id")
-    suspend fun deleteCard(question: String, id: Int)
+    @Query("DELETE FROM infoCards WHERE id = :id")
+    suspend fun deleteCard( id: Int)
 
     @Update
     suspend fun updateCard(card: InfoCards)

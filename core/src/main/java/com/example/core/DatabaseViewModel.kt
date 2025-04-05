@@ -37,13 +37,13 @@ class DatabaseViewModel @Inject constructor(
         checkForDuplicateCollections(collectionDeck.nameCollection)
     }
 
-    suspend fun addCard(question: String, answer: String, collectionId: Int) {
-        repositoryDatabase.addCard(question, answer, collectionId)
-        checkForDuplicateCards(question, answer, collectionId)
+    suspend fun addCard(infoCards: InfoCards) {
+        repositoryDatabase.addCard(infoCards)
+        checkForDuplicateCards(infoCards.question, infoCards.answer, infoCards.collectionId)
     }
 
-    suspend fun deleteCard(question: String, id: Int) {
-        repositoryDatabase.deleteCardByName(question, id)
+    suspend fun deleteCard(id: Int) {
+        repositoryDatabase.deleteCardByName(id)
     }
 
     suspend fun updateCardByName(infoCards: InfoCards) {
@@ -86,7 +86,7 @@ class DatabaseViewModel @Inject constructor(
     private suspend fun checkForDuplicateCollections(nameCollection: String) {
         var checkForDuplicate: Int = -1
         val listCollectionWithCards = allCollection.first()
-        listCollectionWithCards.forEach { collectionWithCards ->
+            listCollectionWithCards.forEach { collectionWithCards ->
             if (nameCollection == collectionWithCards.collection.nameCollection)
                 checkForDuplicate++
         }

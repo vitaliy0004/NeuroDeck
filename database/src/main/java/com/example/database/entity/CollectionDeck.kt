@@ -18,6 +18,9 @@ data class CollectionDeck(
     val nameCollection: String
 )
 
+
+
+
 @Entity(
     tableName = "infoCards",
     foreignKeys = [

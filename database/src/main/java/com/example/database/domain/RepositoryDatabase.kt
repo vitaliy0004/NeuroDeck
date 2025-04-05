@@ -31,18 +31,12 @@ class RepositoryDatabase @Inject constructor(
     fun getCardsForCollection(collectionId: Int): Flow<List<InfoCards>> =
         infoCardsDao.getCardsForCollection(collectionId)
 
-    suspend fun addCard(question: String, answer: String, collectionId: Int) {
-        infoCardsDao.addCard(
-            InfoCards(
-                question = question,
-                answer = answer,
-                collectionId = collectionId
-            )
-        )
+    suspend fun addCard(infoCards: InfoCards) {
+        infoCardsDao.addCard(infoCards)
     }
 
-    suspend fun deleteCardByName(question: String, collectionId: Int) {
-        infoCardsDao.deleteCard(question, collectionId)
+    suspend fun deleteCardByName(id: Int) {
+        infoCardsDao.deleteCard(id)
     }
 
     suspend fun updateCards(infoCards: InfoCards) {
