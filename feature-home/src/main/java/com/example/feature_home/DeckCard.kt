@@ -32,7 +32,7 @@ fun DeckDisplay(){
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Lorem Ipsum",
+                text = "Lorem Ipsum Dolorem",
                 fontSize = 15.sp,
                 fontFamily = FontFamily.Monospace,
                 color = Color(red = 0, green = 0, blue = 0)
