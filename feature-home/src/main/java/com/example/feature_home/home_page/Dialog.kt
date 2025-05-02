@@ -1,4 +1,4 @@
-package com.example.feature_home
+package com.example.feature_home.home_page
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,26 +24,27 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.feature_home.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun DeckDialog(){
-    BasicAlertDialog(onDismissRequest = {}){
+fun DeckDialog() {
+    BasicAlertDialog(onDismissRequest = {}) {
         Card(
             modifier = Modifier
                 .height(150.dp)
                 .width(100.dp)
                 .padding(16.dp),
-        ){
+        ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                TextButton(onClick = { TODO()}) {
-                    Row{
+                TextButton(onClick = { TODO() }) {
+                    Row {
                         Icon(
                             painter = painterResource(id = R.drawable.app_registration_24px),
                             contentDescription = "Создание колоды",
@@ -63,7 +64,7 @@ fun DeckDialog(){
                     }
                 }
                 TextButton(onClick = { TODO() }) {
-                    Row{
+                    Row {
                         Modifier.padding(15.dp)
                         Icon(
                             painter = painterResource(id = R.drawable.file_open_24px),

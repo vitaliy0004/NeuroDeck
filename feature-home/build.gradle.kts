@@ -34,6 +34,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
+    }
 }
 
 dependencies {
@@ -50,6 +54,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.ui.v160)
     implementation(libs.ui.tooling.preview)
+    implementation(libs.androidx.navigation.compose)
     debugImplementation(libs.androidx.compose.ui.ui.tooling)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
