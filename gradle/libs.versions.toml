@@ -62,10 +62,12 @@ org-jetbrains-kotlinx-core = {group = "org.jetbrains.kotlinx", name = "kotlinx-c
 org-jetbrains-kotlinx-android = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines"}
 
 
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt"}
+kapt = { id = "kotlin-kapt" }
+room = { id = "androidx.room", version.ref = "room" }
