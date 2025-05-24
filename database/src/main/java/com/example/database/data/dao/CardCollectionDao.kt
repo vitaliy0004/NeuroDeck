@@ -19,6 +19,9 @@ interface CardCollectionDao {
     @Query("DELETE FROM collectionDeck WHERE id = :id")
     suspend fun deleteCollectionByName(id: Int)
 
+    @Query("SELECT name_collection FROM CollectionDeck WHERE id = :collectionId")
+    fun getCollectionNameById(collectionId: Int): Flow<String>
+
     @Transaction
     @Query("SELECT * FROM collectionDeck")
     fun getAllCollections(): Flow<List<CollectionWithCards>>

@@ -16,6 +16,10 @@ class RepositoryDatabase @Inject constructor(
 
     fun getAllCollections(): Flow<List<CollectionWithCards>> = cardCollectionDao.getAllCollections()
 
+    fun getCollectionName(collectionId: Int): Flow<String> {
+        return cardCollectionDao.getCollectionNameById(collectionId)
+    }
+
     suspend fun addCollection(name: String) {
         cardCollectionDao.addCollection(CollectionDeck(nameCollection = name))
     }
