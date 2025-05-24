@@ -44,6 +44,7 @@ google-hilt-compiler = {group = "com.google.dagger", name = "hilt-compiler", ver
 androidx-hilt-compose = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt_androidx"  }
 org-jetbrains-kotlinx-core = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines"}
 org-jetbrains-kotlinx-android = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines"}
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 
 
 
