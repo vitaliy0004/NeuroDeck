@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.feature_home.navigation.routes
+import com.example.feature_home.navigation.Routes
 
 @Composable
 fun DeckDisplay(navController: NavController){
@@ -53,7 +53,7 @@ fun DeckDisplay(navController: NavController){
             }
             IconButton(
                 onClick = {
-                    navController.navigate(routes.Cards.route){}
+                    navController.navigate(Routes.Cards.route){}
                 },
                 modifier = Modifier
                     .align(Alignment.TopEnd)

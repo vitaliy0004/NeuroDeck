@@ -1,7 +1,7 @@
 package com.example.feature_home.navigation
 
-sealed class routes(val route: String) {
-    object Home: routes("decks")
-    object Cards: routes("cards")
-    object Test: routes("test")
+sealed class Routes(val route: String) {
+    object Home: Routes("decks")
+    object Cards: Routes("cards")
+    object Test: Routes("test")
 }

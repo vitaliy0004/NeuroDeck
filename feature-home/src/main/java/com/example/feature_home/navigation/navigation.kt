@@ -11,10 +11,10 @@ import com.example.feature_home.home_page.FeatureHomeMainSpace
 fun navigation(): NavController{
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = routes.Home.route){
-        composable(routes.Home.route){ FeatureHomeMainSpace() }
-        composable(routes.Cards.route){}
-        composable(routes.Test.route){}
+    NavHost(navController = navController, startDestination = Routes.Home.route){
+        composable(Routes.Home.route){ FeatureHomeMainSpace() }
+        composable(Routes.Cards.route){}
+        composable(Routes.Test.route){}
     }
     return navController
 }

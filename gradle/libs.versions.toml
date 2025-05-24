@@ -23,6 +23,7 @@ hilt = "2.50"
 hilt_androidx = "1.1.0"
 room = "2.6.1"
 coroutines = "1.7.3"
+navigationRuntime = "2.5.3"
 
 
 
@@ -47,19 +48,27 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+#compose
+androidx-compose-material3 = {  group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
 androidx-material-icons-core-android = { group = "androidx.compose.material", name = "material-icons-core-android", version.ref = "materialIconsCoreAndroid" }
-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
-
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
+#room
 androidx-room-runtime = {group = "androidx.room", name = "room-runtime", version.ref = "room"  }
 androidx-room-ktx = {group = "androidx.room", name = "room-ktx", version.ref = "room"  }
 androidx-room-kapt = {group = "androidx.room", name = "room-compiler", version.ref = "room"}
+#hilt
 google-hilt-android = {group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"  }
 google-hilt-compiler = {group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt"}
 androidx-hilt-compose = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt_androidx"  }
+#coroutines
 org-jetbrains-kotlinx-core = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines"}
 org-jetbrains-kotlinx-android = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines"}
+#navigation
+androidx-navigation-runtime = { group = "androidx.navigation", name = "navigation-runtime", version.ref = "navigationRuntime" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationRuntime" }
+
+
 
 
 [plugins]
