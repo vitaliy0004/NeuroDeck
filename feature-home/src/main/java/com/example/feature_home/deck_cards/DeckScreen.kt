@@ -65,7 +65,8 @@ fun FakeDeckScreen() {
     // Фейковые данные
     val fakeCards = listOf(
         Card(1, "Вопрос 1", "Ответ 1", false),
-        Card(2, "Вопрос 2", "Ответ 2", true),
+        Card(2, "Вопрос 2", "Ответ 2\n" +
+                "dfgjhkjl;ojlhgkfjdfghjkjhiugoytifrd", true),
         Card(3, "Вопрос 3", "Ответ 3", false)
     )
     val fakeName = "Пример коллекции"

@@ -25,15 +25,11 @@ fun CardItem(
     onCardClick: (Card) -> Unit,
     onEditClick: (Card) -> Unit = {}
 ) {
-    val animatedHeight by animateDpAsState(
-        targetValue = if (card.isExpanded) 250.dp else 120.dp,
-        animationSpec = tween(durationMillis = 400)
-    )
+
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(animatedHeight)
             .clickable { onCardClick(card) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xBCF8F8F8)), // Полупрозрачный белый

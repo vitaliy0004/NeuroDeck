@@ -22,6 +22,9 @@ class DeckViewModel @Inject constructor(
     private val _cards = MutableStateFlow<List<Card>>(emptyList())
     val cards: StateFlow<List<Card>> get() = _cards
 
+    private val _collectionName = MutableStateFlow("")
+    val collectionName: StateFlow<String> = _collectionName
+
     fun loadCards(collectionId: Int) {
         viewModelScope.launch {
             repository.getCardsForCollection(collectionId)
@@ -49,9 +52,6 @@ class DeckViewModel @Inject constructor(
         }
     }
 
-
-    private val _collectionName = MutableStateFlow("")
-    val collectionName: StateFlow<String> = _collectionName
 
     fun loadCollectionName(collectionId: Int) {
         viewModelScope.launch {
