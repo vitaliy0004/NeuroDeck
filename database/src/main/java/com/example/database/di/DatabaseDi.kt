@@ -32,5 +32,4 @@ class DatabaseDi {
     fun provideCardCollectionDao(appDataBase: Database): CardCollectionDao {
         return appDataBase.cardCollectionDao()
     }
-
 }

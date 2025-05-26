@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.database.data.dao.CardCollectionDao
 import com.example.database.data.dao.InfoCardsDao
-import com.example.database.entity.CollectionDeck
-import com.example.database.entity.InfoCards
+import com.example.database.data.entity.CollectionDeckEntity
+import com.example.database.data.entity.InfoCardsEntity
 
 @Database(
-    entities = [CollectionDeck::class, InfoCards::class],
+    entities = [CollectionDeckEntity::class, InfoCardsEntity::class],
     version = 1,
     exportSchema = true,
 )

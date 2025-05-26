@@ -24,6 +24,7 @@ hilt_androidx = "1.1.0"
 room = "2.6.1"
 coroutines = "1.7.3"
 navigationRuntime = "2.5.3"
+runtimeAndroid = "1.8.2"
 
 
 
@@ -67,6 +68,7 @@ org-jetbrains-kotlinx-android = {group = "org.jetbrains.kotlinx", name = "kotlin
 #navigation
 androidx-navigation-runtime = { group = "androidx.navigation", name = "navigation-runtime", version.ref = "navigationRuntime" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationRuntime" }
+androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 
 
 

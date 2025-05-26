@@ -5,8 +5,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.example.database.entity.CollectionDeck
-import com.example.database.entity.CollectionWithCards
+import com.example.database.data.entity.CollectionDeckEntity
+import com.example.database.data.entity.CollectionWithCardsEntity
 import kotlinx.coroutines.flow.Flow
 
 
@@ -14,15 +14,15 @@ import kotlinx.coroutines.flow.Flow
 interface CardCollectionDao {
 
     @Insert
-    suspend fun addCollection(collectionDeck: CollectionDeck)
+    suspend fun addCollection(collectionDeck: CollectionDeckEntity)
 
     @Query("DELETE FROM collectionDeck WHERE id = :id")
     suspend fun deleteCollectionByName(id: Int)
 
     @Transaction
     @Query("SELECT * FROM collectionDeck")
-    fun getAllCollections(): Flow<List<CollectionWithCards>>
+    fun getAllCollections(): Flow<List<CollectionWithCardsEntity>>
 
     @Update
-    suspend fun updateCollection(collection: CollectionDeck)
+    suspend fun updateCollection(collection: CollectionDeckEntity)
 }

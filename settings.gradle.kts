@@ -22,6 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "NeuroDeck"
 include(":app")
 include(":feature-home")
-include(":core-ui")
 include(":database")
 include(":core")
+include(":navigation")
