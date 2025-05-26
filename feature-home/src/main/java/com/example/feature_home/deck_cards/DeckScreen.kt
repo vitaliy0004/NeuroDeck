@@ -1,15 +1,11 @@
 package com.example.feature_home.deck_cards
 
 import androidx.compose.foundation.background
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -17,81 +13,92 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-
+import com.example.feature_home.deck_cards.model.DeckIntent
+import com.example.feature_home.deck_cards.model.DeckEffect
+import com.example.feature_home.deck_cards.model.DeckUiState
+import com.example.feature_home.deck_cards.model.Card
 @Composable
 fun DeckScreen(
     collectionId: Int,
     viewModel: DeckViewModel = hiltViewModel()
 ) {
-    val cards by viewModel.cards.collectAsState()
-    val name by viewModel.collectionName.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(collectionId) {
-        viewModel.loadCards(collectionId)
-        viewModel.loadCollectionName(collectionId)
+    LaunchedEffect(Unit) {
+        viewModel.sendIntent(DeckIntent.LoadCollection(collectionId))
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is DeckEffect.ShowError -> {
+                    snackbarHostState.showSnackbar(effect.message)
+                }
+            }
+        }
     }
-    Column(modifier = Modifier.fillMaxSize().background(Color.Cyan)) {
-        Text(
-            text = name,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(16.dp)
-        )
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            items(cards) { card ->
-                CardItem(
-                    card = card,
-                    onCardClick = { clickedCard ->
-                        viewModel.toggleCardExpansion(clickedCard)
-                    }
-                )
-                Spacer(modifier = Modifier.height(8.dp))
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding ->
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Cyan)
+            .padding(padding)) {
+            Text(
+                text = uiState.collectionName,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(16.dp).fillMaxWidth()
+            )
+            LazyColumn(
+                modifier = Modifier.fillMaxSize().padding(16.dp)
+            ) {
+                items(uiState.cards) { card ->
+                    CardItem(
+                        card = card,
+                        onCardClick = { viewModel.sendIntent(DeckIntent.ToggleCard(it)) }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
         }
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
-fun PreviewDeckScreen() {
-    FakeDeckScreen()
-}
-
-@Composable
 fun FakeDeckScreen() {
-    // Фейковые данные
-    val fakeCards = listOf(
-        Card(1, "Вопрос 1", "Ответ 1", false),
-        Card(2, "Вопрос 2", "Ответ 2\n" +
-                "dfgjhkjl;ojlhgkfjdfghjkjhiugoytifrd", true),
-        Card(3, "Вопрос 3", "Ответ 3", false)
-    )
-    val fakeName = "Пример коллекции"
-
-    Column(modifier = Modifier.fillMaxSize().background(Color(0xFFF1AF7D))) {
-        Text(
-            text = fakeName,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(16.dp)
-                .fillMaxWidth()
-                .padding(16.dp)
+    val fakeState = DeckUiState(
+        collectionName = "Пример коллекции",
+        cards = listOf(
+            Card(1, "Вопрос 1", "Ответ 1", false),
+            Card(2, "Вопрос 2", "Ответ 2\nблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблаблабла", true),
+            Card(3, "Вопрос 3", "Ответ 3", false)
         )
-        LazyColumn(
+    )
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(remember { SnackbarHostState() }) }
+    ) { padding ->
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .background(Color(0xFFF1AF7D))
+                .padding(padding)
         ) {
-            items(fakeCards) { card ->
-                CardItem(
-                    card = card,
-                    onCardClick = { /* Ничего не делаем в превью */ }
-                )
-                Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = fakeState.collectionName,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(16.dp).fillMaxWidth()
+            )
+            LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                items(fakeState.cards) { card ->
+                    CardItem(card = card, onCardClick = {})
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
         }
     }

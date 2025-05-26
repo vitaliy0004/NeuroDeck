@@ -1,64 +1,65 @@
 package com.example.feature_home.deck_cards
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.database.domain.RepositoryDatabase
-import com.example.database.entity.InfoCards
+import com.example.feature_home.deck_cards.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @HiltViewModel
 class DeckViewModel @Inject constructor(
     private val repository: RepositoryDatabase
 ) : ViewModel() {
 
-    private val _cards = MutableStateFlow<List<Card>>(emptyList())
-    val cards: StateFlow<List<Card>> get() = _cards
+    private val _uiState = MutableStateFlow(DeckUiState())
+    val uiState: StateFlow<DeckUiState> = _uiState.asStateFlow()
 
-    private val _collectionName = MutableStateFlow("")
-    val collectionName: StateFlow<String> = _collectionName
+    private val _effect = MutableSharedFlow<DeckEffect>()
+    val effect: SharedFlow<DeckEffect> = _effect.asSharedFlow()
 
-    fun loadCards(collectionId: Int) {
+    private val intentChannel = Channel<DeckIntent>(Channel.UNLIMITED)
+
+    init {
+        processIntents()
+    }
+
+    fun sendIntent(intent: DeckIntent) {
+        viewModelScope.launch { intentChannel.send(intent) }
+    }
+
+    private fun processIntents() {
         viewModelScope.launch {
-            repository.getCardsForCollection(collectionId)
-                .collectLatest { dbCards ->
-                    _cards.value = dbCards.map {
-                        Card(
-                            id = it.id,
-                            question = it.question,
-                            answer = it.answer,
-                            isExpanded = false
-                        )
-                    }
+            intentChannel.consumeAsFlow().collect { intent ->
+                when (intent) {
+                    is DeckIntent.LoadCollection -> loadCollection(intent.collectionId)
+                    is DeckIntent.ToggleCard -> toggleCard(intent.card)
                 }
-        }
-    }
-
-    fun toggleCardExpansion(card: Card) {
-        viewModelScope.launch {
-            val updatedCard = card.copy(isExpanded = !card.isExpanded)
-            _cards.value = _cards.value.map {
-                if (it.id == card.id) updatedCard else it
-            }
-            // Если нужно сохранять состояние в БД:
-            // repository.updateCard(InfoCards(card.id, card.question, card.answer))
-        }
-    }
-
-
-    fun loadCollectionName(collectionId: Int) {
-        viewModelScope.launch {
-            repository.getCollectionName(collectionId).collect { name ->
-                _collectionName.value = name
             }
         }
     }
 
+    private fun loadCollection(collectionId: Int) {
+        viewModelScope.launch {
+            runCatching {
+                val cards = repository.getCardsForCollection(collectionId)
+                    .first()
+                    .map { Card(it.id, it.question, it.answer) }
+                val name = repository.getCollectionName(collectionId).firstOrNull() ?: "Без имени"
+                _uiState.value = DeckUiState(collectionName = name, cards = cards)
+            }.onFailure {
+                _effect.emit(DeckEffect.ShowError("Ошибка загрузки коллекции"))
+            }
+        }
+    }
+
+    private fun toggleCard(card: Card) {
+        val updatedCards = _uiState.value.cards.map {
+            if (it.id == card.id) it.copy(isExpanded = !it.isExpanded) else it
+        }
+        _uiState.value = _uiState.value.copy(cards = updatedCards)
+    }
 }
