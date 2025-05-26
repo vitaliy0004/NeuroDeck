@@ -1,5 +1,6 @@
 package com.example.feature_home.deck_cards
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -30,7 +31,8 @@ fun CardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onCardClick(card) },
+            .clickable { onCardClick(card) }.
+            animateContentSize(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xBCF8F8F8)), // Полупрозрачный белый
     ) {
